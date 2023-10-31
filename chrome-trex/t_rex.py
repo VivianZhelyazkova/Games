@@ -11,6 +11,8 @@ DUCKING = [pygame.image.load(os.path.join("Assets/Dino", "DinoDuck1.png")),
 class Trex:
     X_POS = 80
     Y_POS = 310
+    Y_POS_DUCK = 340
+    JUMP_VELOCITY = 10
 
     def __init__(self):
         self.run_img = RUNNING
@@ -57,8 +59,13 @@ class Trex:
     def jump(self):
         pass
 
+
     def duck(self):
-        pass
+        self.img = self.duck_img[self.step_index // 5]
+        self.hit_box = self.img.get_rect()
+        self.hit_box.x = Trex.X_POS
+        self.hit_box.y = Trex.Y_POS_DUCK
+        self.step_index += 1
 
     def draw(self, screen):
         screen.blit(self.img, (self.hit_box.x, self.hit_box.y))
