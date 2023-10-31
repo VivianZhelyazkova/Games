@@ -3,7 +3,7 @@ import os
 
 RUNNING = [pygame.image.load(os.path.join("Assets/Dino", "DinoRun1.png")),
            pygame.image.load(os.path.join("Assets/Dino", "DinoRun2.png"))]
-JUMPING = [pygame.image.load(os.path.join("Assets/Dino", "DinoJump.png"))]
+JUMPING = pygame.image.load(os.path.join("Assets/Dino", "DinoJump.png"))
 DUCKING = [pygame.image.load(os.path.join("Assets/Dino", "DinoDuck1.png")),
            pygame.image.load(os.path.join("Assets/Dino", "DinoDuck2.png"))]
 
@@ -12,7 +12,7 @@ class Trex:
     X_POS = 80
     Y_POS = 310
     Y_POS_DUCK = 340
-    JUMP_VELOCITY = 10
+    JUMP_VELOCITY = 8.5
 
     def __init__(self):
         self.run_img = RUNNING
@@ -26,6 +26,7 @@ class Trex:
         self.hit_box = self.img.get_rect()
         self.hit_box.x = Trex.X_POS
         self.hit_box.y = Trex.Y_POS
+        self.jump_velocity = Trex.JUMP_VELOCITY
 
     def update(self, user_input):
         if self.is_running:
@@ -57,8 +58,13 @@ class Trex:
         self.step_index += 1
 
     def jump(self):
-        pass
-
+        self.img = self.jump_img
+        if self.is_jumping:
+            self.hit_box.y -= self.jump_velocity * 4
+            self.jump_velocity -= 0.8
+        if self.jump_velocity < - Trex.JUMP_VELOCITY:
+            self.is_jumping = False
+            self.jump_velocity = Trex.JUMP_VELOCITY
 
     def duck(self):
         self.img = self.duck_img[self.step_index // 5]
