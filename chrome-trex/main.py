@@ -41,14 +41,15 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
         SCREEN.fill((255, 255, 255))
         user_input = pygame.key.get_pressed()
         cloud.draw(SCREEN)
-        cloud.update()
+
         trex.draw(SCREEN)
-        trex.update(user_input)
+
         background.draw(SCREEN)
-        background.update()
+
         if len(obstacles) == 0:
             current_obstacle = random.randint(0, 2)
             if current_obstacle == 0:
@@ -59,13 +60,19 @@ def main():
                 obstacles.append(Bird(SCREEN_WIDTH, GAME_SPEED, callback))
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
-            obstacle.update()
+
             if trex.hit_box.colliderect(obstacle.rect):
                 death_count += 1
-                obstacles.clear()
                 pygame.time.delay(1000)
+                obstacles.clear()
                 menu(death_count)
 
+                run = False
+            else:
+                obstacle.update()
+        cloud.update()
+        trex.update(user_input)
+        background.update()
 
         score()
         clock.tick(30)
@@ -78,7 +85,7 @@ def menu(death_count):
         SCREEN.fill((255, 255, 255))
         font = pygame.font.Font("freesansbold.ttf", 30)
         if death_count == 0:
-            head = font.render(f"Press any key to start:", True, (0, 0, 0))
+            head = font.render(f"Press SPACE to start:", True, (0, 0, 0))
         elif death_count > 0:
             head = font.render(f"GAME OVER", True, (0, 0, 0))
             body = font.render(f"Your score is: {points}", True, (0, 0, 0))
@@ -92,9 +99,11 @@ def menu(death_count):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
 
             if event.type == pygame.KEYDOWN:
-                main()
+                if event.key == pygame.K_SPACE:
+                    main()
 
 
 
