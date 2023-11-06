@@ -62,7 +62,10 @@ def main():
             obstacle.update()
             if trex.hit_box.colliderect(obstacle.rect):
                 death_count += 1
+                obstacles.clear()
+                pygame.time.delay(1000)
                 menu(death_count)
+
 
         score()
         clock.tick(30)
@@ -89,8 +92,10 @@ def menu(death_count):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
             if event.type == pygame.KEYDOWN:
                 main()
+
 
 
 menu(0)

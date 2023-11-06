@@ -31,6 +31,7 @@ class Obstacle:
 
     def draw(self, screen):
         screen.blit(self.image[self.obst_type], self.rect)
+        pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
 
 
 class LargeCactus(Obstacle):
@@ -62,3 +63,4 @@ class Bird(Obstacle):
             self.step_index = 0
         screen.blit(self.image[self.step_index // 5], self.rect)
         self.step_index += 1
+        pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)

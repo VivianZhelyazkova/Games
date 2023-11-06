@@ -75,3 +75,4 @@ class Trex:
 
     def draw(self, screen):
         screen.blit(self.img, (self.hit_box.x, self.hit_box.y))
+        pygame.draw.rect(screen, (255, 0, 0), self.hit_box, 2)
