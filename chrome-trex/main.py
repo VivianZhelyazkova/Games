@@ -2,6 +2,7 @@ import pygame
 import os
 from t_rex import Trex
 from clouds import Cloud
+from background import Background
 
 pygame.init()
 SCREEN_HEIGHT = 600
@@ -22,13 +23,12 @@ BIRD = [pygame.image.load(os.path.join("Assets/Bird", "Bird1.png")),
         pygame.image.load(os.path.join("Assets/Bird", "Bird2.png"))]
 
 
-
-
 def main():
     run = True
     clock = pygame.time.Clock()
     trex = Trex()
     cloud = Cloud(SCREEN_WIDTH, GAME_SPEED)
+    background = Background(GAME_SPEED)
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -39,6 +39,8 @@ def main():
         cloud.update()
         trex.draw(SCREEN)
         trex.update(user_input)
+        background.draw(SCREEN)
+        background.update()
         clock.tick(30)
         pygame.display.update()
 
