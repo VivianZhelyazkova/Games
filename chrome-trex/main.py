@@ -3,6 +3,8 @@ import os
 from t_rex import Trex
 from clouds import Cloud
 from background import Background
+import random
+from obstacle import *
 
 pygame.init()
 SCREEN_HEIGHT = 600
@@ -46,6 +48,17 @@ def main():
         trex.update(user_input)
         background.draw(SCREEN)
         background.update()
+        if len(obstacles) == 0:
+            current_obstacle = random.randint(0, 2)
+            if current_obstacle == 0:
+                obstacles.append(SmallCactus(SCREEN_WIDTH, GAME_SPEED, callback))
+            elif current_obstacle == 1:
+                obstacles.append(LargeCactus(SCREEN_WIDTH, GAME_SPEED, callback))
+            elif current_obstacle == 2:
+                obstacles.append(Bird(SCREEN_WIDTH, GAME_SPEED, callback))
+        for obstacle in obstacles:
+            obstacle.draw(SCREEN)
+            obstacle.update()
         score()
         clock.tick(30)
         pygame.display.update()

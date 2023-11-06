@@ -35,25 +35,25 @@ class Obstacle:
 
 class LargeCactus(Obstacle):
 
-    def __init__(self, image, obst_type, screen_width, game_speed):
+    def __init__(self, screen_width, game_speed, callback):
         self.obst_type = random.randint(0, 2)
-        super().__init__(image, self.obst_type, screen_width, game_speed)
-        self.rect.y = 350
+        super().__init__(LARGE_CACTUS, self.obst_type, screen_width, game_speed, callback)
+        self.rect.y = 300
 
 
 class SmallCactus(Obstacle):
 
-    def __init__(self, image, obst_type, screen_width, game_speed):
+    def __init__(self, screen_width, game_speed, callback):
         self.obst_type = random.randint(0, 2)
-        super().__init__(image, self.obst_type, screen_width, game_speed)
-        self.rect.y = 320
+        super().__init__(SMALL_CACTUS, self.obst_type, screen_width, game_speed, callback)
+        self.rect.y = 325
 
 
 class Bird(Obstacle):
 
-    def __init__(self, image, obst_type, screen_width, game_speed):
+    def __init__(self, screen_width, game_speed, callback):
         self.obst_type = 0
-        super().__init__(image, self.obst_type, screen_width, game_speed)
+        super().__init__(BIRD, self.obst_type, screen_width, game_speed, callback)
         self.rect.y = 250
         self.step_index = 0
 
@@ -61,3 +61,4 @@ class Bird(Obstacle):
         if self.step_index >= 9:
             self.step_index = 0
         screen.blit(self.image[self.step_index // 5], self.rect)
+        self.step_index += 1
