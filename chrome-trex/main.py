@@ -11,24 +11,29 @@ GAME_SPEED = 15
 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-SMALL_CACTUS = [pygame.image.load(os.path.join("Assets/Cactus", "SmallCactus1.png")),
-                pygame.image.load(os.path.join("Assets/Cactus", "SmallCactus2.png")),
-                pygame.image.load(os.path.join("Assets/Cactus", "SmallCactus3.png"))]
-
-LARGE_CACTUS = [pygame.image.load(os.path.join("Assets/Cactus", "LargeCactus1.png")),
-                pygame.image.load(os.path.join("Assets/Cactus", "LargeCactus2.png")),
-                pygame.image.load(os.path.join("Assets/Cactus", "LargeCactus3.png"))]
-
-BIRD = [pygame.image.load(os.path.join("Assets/Bird", "Bird1.png")),
-        pygame.image.load(os.path.join("Assets/Bird", "Bird2.png"))]
-
 
 def main():
+    global points
     run = True
     clock = pygame.time.Clock()
     trex = Trex()
     cloud = Cloud(SCREEN_WIDTH, GAME_SPEED)
     background = Background(GAME_SPEED)
+    font = pygame.font.Font("freesansbold.ttf", 30)
+    points = 0
+    obstacles = []
+
+    def callback(obstacle):
+        obstacles.remove(obstacle)
+
+    def score():
+        global points
+        text = font.render(f"POINTS: {points}", True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (1000, 30)
+        SCREEN.blit(text, text_rect)
+        points += 1
+
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -41,6 +46,7 @@ def main():
         trex.update(user_input)
         background.draw(SCREEN)
         background.update()
+        score()
         clock.tick(30)
         pygame.display.update()
 
