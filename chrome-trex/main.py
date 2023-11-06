@@ -24,6 +24,7 @@ def main():
     font = pygame.font.Font("freesansbold.ttf", 30)
     points = 0
     obstacles = []
+    death_count = 0
 
     def callback(obstacle):
         obstacles.remove(obstacle)
@@ -32,7 +33,7 @@ def main():
         global points
         text = font.render(f"POINTS: {points}", True, (0, 0, 0))
         text_rect = text.get_rect()
-        text_rect.center = (1000, 30)
+        text_rect.center = (900, 30)
         SCREEN.blit(text, text_rect)
         points += 1
 
@@ -59,9 +60,37 @@ def main():
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
             obstacle.update()
+            if trex.hit_box.colliderect(obstacle.rect):
+                death_count += 1
+                menu(death_count)
+
         score()
         clock.tick(30)
         pygame.display.update()
 
 
-main()
+def menu(death_count):
+    run = True
+    while run:
+        SCREEN.fill((255, 255, 255))
+        font = pygame.font.Font("freesansbold.ttf", 30)
+        if death_count == 0:
+            head = font.render(f"Press any key to start:", True, (0, 0, 0))
+        elif death_count > 0:
+            head = font.render(f"GAME OVER", True, (0, 0, 0))
+            body = font.render(f"Your score is: {points}", True, (0, 0, 0))
+            body_rect = body.get_rect()
+            body_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(body, body_rect)
+        head_rect = head.get_rect()
+        head_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        SCREEN.blit(head, head_rect)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN:
+                main()
+
+
+menu(0)
