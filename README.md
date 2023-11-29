@@ -20,8 +20,8 @@ This repository is a collection of diverse game projects, showcasing my passion 
 The repository is organized as follows:
 
 - **T-rex game**: A clone of Chrome's "no internet" game that fully replicates all the functionality, graphics and gameplay of the original.
-- **Music**: Description and resources for Game 2.
-- **game3**: Description and resources for Game 3.
+- **Guess a number game**
+- **Hangman game**: The good old-fashioned Hangman game that we all know and love.
 - ...
 
 Feel free to dive into each game directory to find source code, assets, and documentation related to the respective game.
