@@ -36,7 +36,7 @@ To explore a specific game project, follow these steps:
 
 ## Contributing
 
-While this repository primarily showcases my personal game projects, I welcome collaboration and feedback. If you have suggestions, improvements, or would like to contribute to a specific game, feel free to open an issue or submit a pull request. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+While this repository primarily showcases my personal game projects, I welcome collaboration and feedback. If you have suggestions, improvements, or would like to contribute to a specific game, feel free to open an issue or submit a pull request.
 
 ## Feedback
 
